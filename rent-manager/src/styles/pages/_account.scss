@@ -1,3 +1,108 @@
 .first-run {
-    
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-direction: column;
+    align-items: center;
+
+
+
+    .cards {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+            
+        .card {
+            box-shadow: $shadow;
+            padding: 2rem;
+            background-color: $white;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            min-height: 325px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            ul {
+                list-style-type: none;
+
+                ul {
+                    width: min-content;
+                }
+            }
+        }
+    }
+
+}
+
+
+.user-account {
+    display: grid;
+
+    .user-details {
+        text-align: center;
+        padding: 2rem;
+    }
+}
+
+.rents-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .rents {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: .5rem;
+        grid-auto-flow: dense;
+        grid-auto-rows: 350px;
+        
+        .rent {
+            width: 100%;
+            height: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: $shadow;
+            background-color: $white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            
+            .rent-image-wrapper {
+              border-radius: 8px;
+              overflow: hidden;
+              height: 200px;
+            }
+
+            .buttons {
+                align-self: flex-end;
+            }
+
+        
+        }
+    }
+
+}
+
+@media (max-width: 400px) {
+    .rents-wrapper {
+        .rents {
+           grid-template-columns: auto;
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    .first-run {
+        .cards {
+            flex-direction: column;
+        }
+    }
 }
