@@ -3,6 +3,7 @@ import Section from "../components/section";
 
 import leaf from "../assets/leaf.svg";
 import { useRef } from "react";
+import { useNavigate } from "react-router";
 
 export default function Account() {
 
@@ -109,7 +110,7 @@ function LandlordAccount() {
 function Rent(props: {
    isLandlord: boolean
 }) {
-
+   const navigate = useNavigate();
 
    return (
       <div className="rent">
@@ -125,18 +126,18 @@ function Rent(props: {
             <Button
             type="SECONDARY"
             cb={() => {
-
+               navigate(`/rent/1/manage`)
             }}>Manage</Button>
             : 
             <Button
                type="DANGER"
                cb={() => {
-
+                   
                }}>Leave</Button>}
             <Button
                type="PRIMARY"
                cb={() => {
-
+                  navigate(`/rent/1/dashboard`)
                }}>Dashboard</Button>
          </div>
       </div>

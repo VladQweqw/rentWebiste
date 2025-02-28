@@ -8,6 +8,8 @@ import Footer from "./components/footer"
 import NotFound from "./pages/NotFound"
 import RegisterForm from "./pages/register"
 import Account from "./pages/account"
+import Dashboard from "./pages/Rent/dashboard"
+import Manage from "./pages/Rent/manage"
 
 function App() {
  
@@ -23,6 +25,9 @@ function App() {
           <Route path="/register" element={<RegisterForm />}></Route>
 
           <Route path="/account" element={<Account />}></Route>
+
+          <Route path="/rent/:id/dashboard" element={<Dashboard />}></Route>
+          <Route path="/rent/:id/manage" element={<Manage />}></Route>
 
 
           <Route path="*" element={<NotFound />}></Route>
