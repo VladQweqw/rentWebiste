@@ -27,10 +27,39 @@ a {
 }
 
 body {
-    background-color: $background;
-    color: $text;
-    padding: .5rem;
+    background-color: $white;
+    color: $black;
     font-family: $ff;
+}
+
+#root {
+    margin-top: 80px;
+}
+
+.section {
+    // min-height: calc(100dvh - 160px);
+}
+
+.d-height {
+    min-height: calc(100dvh - 160px);
+}
+
+
+
+.buttons {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+}
+
+.p-5 {
+    padding: .5rem;
+}
+
+.p-1 {
+    padding: 1rem;
 }
 
 h1 {

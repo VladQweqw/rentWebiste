@@ -1,15 +1,40 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router"
+import NavbarItem from "./navbarItem";
 
 export default function Navbar() {
+    const navigate = useNavigate();
+    const [isLogged, setIsLogged] = useState<boolean>(false)
 
-   return(
-    <div className="navbar">
-        <div className="logo">
-            <h3>Logo</h3>
+    useEffect(() => {
+        
+        const local = JSON.parse(localStorage.getItem("user_id") || null);
+
+        if(local) {
+            setIsLogged(true)
+        }
+
+        
+    }, [])
+
+
+    return (
+        <div className="navbar">
+            <div className="logo">
+                <h2
+                    onClick={() => {
+                        navigate("/")
+                    }}
+                >Logo</h2>
+            </div>
+
+            <nav className="nav">
+                {isLogged ? 
+                <NavbarItem redirect="/acount">Account</NavbarItem>
+                :
+                <NavbarItem redirect="/login">Sign in</NavbarItem>
+                }
+            </nav>
         </div>
-
-        <nav className="nav">
-            <div className="nav-item">Account</div>
-        </nav>
-    </div>
-   )
+    )
 }

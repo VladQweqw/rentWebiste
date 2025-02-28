@@ -1,0 +1,53 @@
+.navbar, .footer {
+    height: 80px;
+    background-color: $pale;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 2rem;
+    gap: 1rem;
+
+    .nav {
+        display: flex;
+        gap: 2rem;
+
+    }
+
+}
+
+.nav-item {
+    cursor: pointer;
+    position: relative;
+    font-size: 1rem;
+
+    &::before {
+        content: "";
+        width: 0%;
+        height: 1px;
+        background-color: $black;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transition: 200ms ease-in-out;
+    }
+
+    &:active {
+        scale: .9;
+    }
+
+    &:hover::before {
+        width: 100%;
+      
+    }
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+
+}

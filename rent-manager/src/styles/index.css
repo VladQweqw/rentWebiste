@@ -23,14 +23,38 @@ button, input, textarea {
 
 a {
   text-decoration: none;
-  color: #FFC832;
+  color: #fcbc0e;
 }
 
 body {
   background-color: #FFFFFF;
   color: #000;
-  padding: 0.5rem;
   font-family: "Poppins", sans-serif;
+}
+
+#root {
+  margin-top: 80px;
+}
+
+.d-height {
+  min-height: calc(100dvh - 160px);
+}
+
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.p-5 {
+  padding: 0.5rem;
+}
+
+.p-1 {
+  padding: 1rem;
 }
 
 h1 {
@@ -43,4 +67,140 @@ h2 {
 
 h3 {
   font-size: 1rem;
+}
+
+.button {
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 200ms ease;
+  font-size: 0.9rem;
+}
+.button:active {
+  scale: 0.9;
+}
+
+.PRIMARY {
+  background-color: #fcbc0e;
+  color: #FFFFFF;
+}
+.PRIMARY:hover {
+  background-color: #c79d28;
+}
+
+.SECONDARY {
+  background-color: #FF9232;
+  color: #FFFFFF;
+}
+.SECONDARY:hover {
+  background-color: #b86a26;
+}
+
+.navbar, .footer {
+  height: 80px;
+  background-color: #FFD38C;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  gap: 1rem;
+}
+.navbar .nav, .footer .nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-item {
+  cursor: pointer;
+  position: relative;
+  font-size: 1rem;
+}
+.nav-item::before {
+  content: "";
+  width: 0%;
+  height: 1px;
+  background-color: #000;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: 200ms ease-in-out;
+}
+.nav-item:active {
+  scale: 0.9;
+}
+.nav-item:hover::before {
+  width: 100%;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+}
+
+.background-decor {
+  position: fixed;
+  z-index: -1;
+}
+
+.leaf-1 {
+  transform: rotate(90deg);
+  top: 30%;
+}
+
+.leaf-2 {
+  transform: rotate(-90deg);
+  right: 0;
+  top: -10%;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+.form-wrapper .form {
+  background-color: #FFFFFF;
+  box-shadow: 0px 0 4px 0px rgba(0, 0, 0, 0.2509803922);
+  padding: 2rem 1rem;
+  border-radius: 12px;
+  display: grid;
+  width: 100%;
+  max-width: 350px;
+  gap: 1rem;
+}
+.form-wrapper .form .option {
+  font-size: 1rem;
+  -moz-columns: rgba(0, 0, 0, 0.4588235294);
+       columns: rgba(0, 0, 0, 0.4588235294);
+}
+
+.input {
+  width: 100%;
+}
+.input .input-field {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.4588235294);
+  border-radius: 6px;
+}
+
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid;
+  gap: 1rem;
+  text-align: center;
+  height: 100%;
 }/*# sourceMappingURL=index.css.map */
