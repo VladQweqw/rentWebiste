@@ -1,7 +1,7 @@
 
 export default function Button(props: {
     children: React.ReactNode,
-    type: "PRIMARY" | "SECONDARY" | "TEXT",
+    type: "PRIMARY" | "SECONDARY" | "DANGER",
     cb: () => void
 }) {
 

@@ -34,17 +34,16 @@ function TenantAcccount() {
       <h2>My rent:</h2>
 
       <div className="rents">
-         <Rent />
-         <Rent />
-         <Rent />
-         <Rent />
+         <Rent isLandlord={false} />
+         <Rent isLandlord={false} />
+         <Rent isLandlord={false} />
       </div>
    </div>
    )
 }
 
 function LandlordAccount() {
-   const imagePreview = useRef<HTMLImageElement>();
+   const imagePreview = useRef<HTMLImageElement | null>(null);
 
    return (
       <>
@@ -52,10 +51,11 @@ function LandlordAccount() {
             <h2>My rent:</h2>
 
             <div className="rents">
-               <Rent />
-               <Rent />
-               <Rent />
-               <Rent />
+               <Rent isLandlord={true} />
+               <Rent isLandlord={true} />
+               <Rent isLandlord={true} />
+               <Rent isLandlord={true} />
+
             </div>
 
             <div className="rents-wrapper new-rent-wrapper">
@@ -70,13 +70,14 @@ function LandlordAccount() {
                         src="" />
                      <input
                         onChange={(e) => {
-                           const file = e.target.files[0];
+                           const file = e.target.files?.[0];
 
                            if (file) {
                               const reader = new FileReader();
 
                               reader.onload = function (e) {
                                  imagePreview.current.src = e.target?.result;
+                           
                               };
 
                               reader.readAsDataURL(file);
@@ -105,7 +106,11 @@ function LandlordAccount() {
    )
 }
 
-function Rent() {
+function Rent(props: {
+   isLandlord: boolean
+}) {
+
+
    return (
       <div className="rent">
          <div className="rent-image-wrapper">
@@ -116,11 +121,18 @@ function Rent() {
             <p>#1234123</p>
          </div>
          <div className="buttons">
+            {props.isLandlord ?
+            <Button
+            type="SECONDARY"
+            cb={() => {
+
+            }}>Manage</Button>
+            : 
             <Button
                type="DANGER"
                cb={() => {
 
-               }}>Leave</Button>
+               }}>Leave</Button>}
             <Button
                type="PRIMARY"
                cb={() => {
