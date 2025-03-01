@@ -1,0 +1,203 @@
+.rent-dashboard {
+    display: grid;
+    grid-template-rows: 100px auto 100px;
+    
+    .usages {
+        display: grid;
+        gap: 5rem;
+        height: 100%;
+        padding: 2rem;
+    }
+
+    header {
+        padding: 2rem;
+        align-self: flex-start;
+    }
+
+    .utilities {
+        display: grid;
+        text-align: center;
+        gap: 1rem;
+
+        .utilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            justify-content: center;
+
+            .utility {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                
+                h2 {
+                    font-weight: 500;
+                }
+                
+                .circle {
+                    box-shadow: $shadow;
+                    width: 200px;
+                    height: 200px;
+                    background-color: $accent;
+                    border-radius: 250px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    color: $white;
+
+                    .usage {
+                        display: flex;
+                        align-items: center;
+                        gap: .25rem;
+                        line-height: 50px;
+
+                        .usage-value {
+                            font-size: 3rem;
+                        }
+
+                        .units {
+                            color: $secondary-text;
+                        }
+                        
+                    }
+
+                    .aproximately-cost {
+                        color: $secondary-text;
+                    }
+                    
+                }
+            }
+
+        }
+
+        .manage-utilty {
+            grid-template-columns: auto;
+            gap: 2rem;
+            
+        
+        }
+
+    }
+
+    .buttons {
+        margin-left: auto;
+    }
+}
+
+.total-calculator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+
+    .wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        .total {
+            font-weight: 500;
+            font-size: 1.5rem;
+        }
+
+        .progress-bar {
+            width: min(800px, 100%);
+            border-radius: 4px;
+            height: 50px;
+            border: 1px solid $black;
+            display: flex;
+
+            
+            .progress {
+                height: 100%;
+                position: relative;
+                border: 2px solid transparent;
+                cursor: pointer;
+                transition: 200ms ease;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+                p {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                span {
+                    position: absolute;
+                    color: $black;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    transition: 200ms ease;
+                    min-width: 200px;
+                    opacity: 0;
+                }
+
+                &:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 4px 5px #00000030;
+
+                    span {
+                        opacity: 1;
+                        transform: translate(-50%, 100%);
+                    }
+                }
+
+            }
+
+            .ethernet {
+                background-color: $ethernet;
+            }
+
+            .water {
+                background-color: $water;
+            }
+
+            .electricty {
+                background-color: $electricty;
+            }
+
+            .gas {
+                background-color: $gas;
+            }
+
+            .rent {
+                background-color: $accent;
+            }
+        }
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .rent-dashboard {
+        .usages {
+            padding: .5rem;
+        }
+    }
+
+    .total-calculator {
+        width: 100%;
+        padding: .5rem;
+
+        .wrapper {
+            flex-direction: column;
+            width: 100%;
+
+            .progress-bar {
+                width: 100%;
+                min-width: 100%;
+            }
+        }
+    }
+}
