@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-export const endpoint = 'http://192.168.1.169:1605/'
+export const endpoint = 'http://192.168.1.169:1605/api/v1'
 
 export default function useFetch(options: {
     method: 'POST' | 'GET' | 'PUT' | 'DELETE',

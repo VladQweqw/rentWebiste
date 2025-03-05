@@ -7,7 +7,10 @@ export default function Button(props: {
 
    return(
     <button 
-    onClick={props.cb}
+    onClick={(e) => {
+        e.preventDefault();
+        props.cb()
+    }}
     className={`button ${props.type}`}
     >{props.children}</button>
    )
