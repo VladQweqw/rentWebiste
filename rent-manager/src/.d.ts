@@ -8,5 +8,9 @@ type UserType = {
 }
 
 type RentType = {
-    name: string
+    name: string,
+    rent_identification: string,
+    landlord: UserType,
+    tenant: UserType,
+    image: string
 }

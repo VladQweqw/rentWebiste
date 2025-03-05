@@ -24,7 +24,6 @@ export default function Register() {
         call({
             data: credentials,
             headers: {
-                "Access-Control-Allow-Origin": "*",
                 "Content-Type": "application/json"
             },
             method: "POST",

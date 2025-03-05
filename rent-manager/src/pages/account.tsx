@@ -15,7 +15,7 @@ export default function Account() {
 
    useEffect(() => {
       const user = localStorage.getItem("user") || null;
-
+      
       if (user) {
          setUserId(user);
 
@@ -91,13 +91,42 @@ export default function Account() {
 
 function AddRent() {
    const imagePreview = useRef<HTMLImageElement | null>(null);
+   const { data, isLoading, error, call } = useFetch();
+
+   const form = useRef<HTMLFormElement | null>(null)
+
+   function create_rent() {
+      const credentials = {
+         name: form.current!.rent_name.value,
+         landlord: localStorage.getItem("user") || "",
+     }
+
+      call({
+         url: `/rent`,
+         method: 'POST',
+         data: credentials,
+         headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+        },
+      })
+   }
+
+   
+   if (data) {
+      if(data.id) {
+         location.reload();
+      }
+   }  
 
    return (
       <div className="rents-wrapper new-rent-wrapper">
                <h2>New rent:</h2>
 
                <div className="new-rent">
-                  <form action="" className="add-rent-form">
+                  <form
+                  ref={form}
+                  action="" className="add-rent-form">
                      <div className="form-image">
                         <img
                            ref={imagePreview}
@@ -124,14 +153,35 @@ function AddRent() {
                            accept="image/*" />
                      </div>
                      <div className="input">
-                        <input type="text" placeholder="Rent name" className="input-field" />
+                        <input 
+                        type="text" 
+                        placeholder="Rent name" 
+                        id="rent_name"
+                        name="rent_name"
+                        className="input-field" />
                      </div>
-                     <Button
+                     
+                     
+                     {error ? 
+                     <ErrorComponent />
+                     : ""}
+
+                     {
+                        isLoading ?
+                        <Button
                         type="PRIMARY"
                         cb={() => {
 
                         }}
+                        >Loading..</Button>
+                        : 
+                        <Button
+                        type="PRIMARY"
+                        cb={() => {
+                           create_rent();
+                        }}
                      >Create rent</Button>
+                     }
                   </form>
                </div>
             </div>
@@ -180,8 +230,8 @@ function Rent(props: {
             <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="rent-image" alt="" />
          </div>
          <div className="rent-details">
-            <h2>Floreasca 53</h2>
-            <p>#1234123</p>
+            <h2>{props.rent.name}</h2>
+            <p>#{props.rent.rent_identification}</p>
          </div>
          <div className="buttons">
             {props.isLandlord ?
