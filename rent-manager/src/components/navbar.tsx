@@ -1,22 +1,10 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router"
 import NavbarItem from "./navbarItem";
 
-export default function Navbar() {
+export default function Navbar(props: {
+    isLogged: boolean
+}) {
     const navigate = useNavigate();
-    const [isLogged, setIsLogged] = useState<boolean>(false)
-
-    useEffect(() => {
-        
-        const local = JSON.parse(localStorage.getItem("user_id") || null);
-
-        if(local) {
-            setIsLogged(true)
-        }
-
-        
-    }, [])
-
 
     return (
         <div className="navbar">
@@ -29,8 +17,8 @@ export default function Navbar() {
             </div>
 
             <nav className="nav">
-                {isLogged ? 
-                <NavbarItem redirect="/acount">Account</NavbarItem>
+                {props.isLogged ? 
+                <NavbarItem redirect="/account">Account</NavbarItem>
                 :
                 <NavbarItem redirect="/login">Sign in</NavbarItem>
                 }

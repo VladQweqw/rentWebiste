@@ -34,7 +34,8 @@ export default function LoginForm() {
 
     if (data) {
         if(data?.email) {
-            navigate("/")
+            navigate("/")            
+            localStorage.setItem("user", data?.id) // set the global state
         } 
     }
 

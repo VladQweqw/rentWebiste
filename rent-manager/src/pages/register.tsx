@@ -16,7 +16,7 @@ export default function Register() {
         const credentials = {
             email: form.current!.email.value,
             name: form.current!.name.value,
-            tel: form.current!.tel.value,
+            phone_number: form.current!.tel.value,
             password: form.current!.password.value,
         }
 

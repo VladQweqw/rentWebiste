@@ -1,5 +1,6 @@
 .button {
     padding: .5rem;
+    min-width: 75px;
     border-radius: 4px;
     cursor: pointer;
     transition: 200ms ease;
@@ -25,5 +26,14 @@
 
     &:hover {
         background-color: $secondary-hover;
+    }
+}
+
+.DANGER {
+    background-color: rgb(245, 26, 26);
+    color: $white;
+
+    &:hover {
+        background-color: rgb(173, 27, 27);
     }
 }
