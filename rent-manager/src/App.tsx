@@ -58,8 +58,8 @@ function App() {
 
             <Route path="/account" element={<Account />}></Route>
 
-            <Route path="/rent/:id/dashboard" element={<Dashboard />}></Route>
-            <Route path="/rent/:id/manage" element={<Manage />}></Route>
+            <Route path="/rent/:rent_id/dashboard" element={<Dashboard />}></Route>
+            <Route path="/rent/:rent_id/manage" element={<Manage />}></Route>
 
 
             <Route path="*" element={<NotFound />}></Route>

@@ -1,66 +1,108 @@
+import { useEffect } from "react";
 import { formatTime } from "../../assets/functions/functions";
+import useFetch from "../../components/api/useFetch";
 import Button from "../../components/button";
 import Section from "../../components/section";
+import { useNavigate } from "react-router";
+import { useParams } from "react-router";
+import NoContent from "../../components/noContent";
 
 export default function Dashboard() {
+   const navigate = useNavigate();
 
 
+   const { rent_id } = useParams();
+
+   useEffect(() => {
+      const user = localStorage.getItem("user") || null;
+
+      if (user && rent_id) {
+
+
+         call({
+            url: `/rent/${rent_id}`,
+            method: 'GET',
+            data: {},
+            headers: {
+               "Content-Type": "application/json"
+            },
+         })
+      } else {
+         navigate("/login")
+      }
+   }, [])
+
+   const { data, isLoading, error, call } = useFetch();
+
+   if (data) {
+      console.log(data);
+   }
 
    return (
       <Section>
          <div className="rent-dashboard d-height">
-            <header>
-               <h2 className="rent-name">Floreasca 53</h2>
-               <p>{formatTime().now()}</p>
-            </header>
+            {data ? <>
 
-            <div className="usages">
-               <Utilities />
-               <TotalCalculator />
-            </div>
+               <header>
+                  <h2 className="rent-name">{data?.name}</h2>
+                  <p>{formatTime().now()}</p>
+               </header>
 
-            <div className="buttons">
+               <div className="usages">
+                  {data?.utilities ? <Utilities utils={data?.utilities} /> : <NoContent>No utilities set yet!</NoContent>}
+                  {data?.utilities ? <TotalCalculator utils={data?.utilities} /> : <NoContent>No utilities set yet!</NoContent>}
+               </div>
+
+               <div className="buttons">
                   <Button
-                  type="SECONDARY"
-                  cb={() => {}}
+                     type="SECONDARY"
+                     cb={() => { }}
                   >Contact Landlord</Button>
 
                   <Button
-                  type="PRIMARY"
-                  cb={() => {}}
+                     type="PRIMARY"
+                     cb={() => { }}
                   >Send readings</Button>
-            </div>
+               </div>
+
+            </> : ""}
          </div>
       </Section>
    )
 }
 
-function Utilities() {
+function Utilities(props: {
+   utils: UtilityType[]
+}) {
    return (
       <div className="utilities">
          <h2>Utilities</h2>
          <div className="utilities-grid">
-            <Utility />
-            <Utility />
-            <Utility />
-            <Utility />
-            <Utility />
+            {
+               props.utils.map((util: UtilityType, index: number) => {
+                  return  <Utility 
+                  key={index}
+                  util={util} />
+               })
+            }
          </div>
       </div>
    )
 }
 
-function Utility() {
+function Utility(props: {
+   util: UtilityType
+}) {
 
    return (
       <div className="utility">
-         <h2>Water use</h2>
+         <h2>{props.util.name}</h2>
          <div className="circle">
             <div className="usage">
-               <h1 className="usage-value">4</h1>
-               <p className="units">m3</p>
+               <h1 className="usage-value">{props.util.value}</h1>
+               <p className="units">completat</p>
             </div>
-            <p className="aproximately-cost">~ 10.55Eur</p>
+            <p className="aproximately-cost">~ {props.util.value * props.util.price_per_unit} {props.util.currency}</p>
             <p className="index">Last index: 2313</p>
          </div>
       </div>
@@ -69,7 +111,7 @@ function Utility() {
 
 function TotalCalculator() {
 
-   return(
+   return (
       <div className="total-calculator">
          <h2>Total</h2>
 
@@ -93,13 +135,13 @@ function Progress(props: {
    name: string,
 }) {
 
-   return(
-      <div 
-      style={{
-         width: `${props.value}%`,
-      }}
-   
-      className={`progress ${props.type}`}>
+   return (
+      <div
+         style={{
+            width: `${props.value}%`,
+         }}
+
+         className={`progress ${props.type}`}>
          <p>{props.name}</p>
          <span>{props.name} {props.price} Euro</span>
       </div>

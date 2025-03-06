@@ -177,6 +177,13 @@
     }
 }
 
+.utilties-form {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    display: grid;
+    gap: 1rem;
+}
 
 @media (max-width: 800px) {
 
@@ -201,3 +208,4 @@
         }
     }
 }
+

@@ -44,7 +44,16 @@ export default function Account() {
          <img src={leaf} alt="decor leaft" className="background-decor leaf-2" />
 
          <div className="account d-height">
-            {error ? <ErrorComponent /> : ""}
+            {error ? <div className="center">
+               <ErrorComponent />
+               <Button
+               cb={() => {
+                  navigate('/login')
+               }}
+               type="PRIMARY"
+               >Login</Button>
+            
+            </div> : ""}
             {isLoading ? <Loading /> : ""}
             {data ?
                <div className="user-account d-height">
@@ -77,7 +86,11 @@ export default function Account() {
 
                   {
                      data?.type != null ? 
-                     <Rents isLandlord={data?.type == "landlord"} rents={data?.rents} />
+                     <Rents 
+                     isLandlord={data?.type == "landlord"} 
+                     rents={
+                           data?.type == "landlord" ? data?.landlord_rents : data?.tenant_rents
+                     } />
                      : ""
                   }
 
@@ -193,13 +206,15 @@ function Rents(props: {
    rents: RentType[]
 }) {
 
-
+   if(!props?.rents) return <NoContent>No rents yet</NoContent>  
+   console.log(props.rents);
+   
    return (
       <div className="rents-wrapper">
          <h2>My rents:</h2>
          {props.rents.length > 0 ?
             <div className="rents">
-               {props.rents.map((rent: RentType, index: number) => {
+               {props?.rents?.map((rent: RentType, index: number) => {
                   return <Rent
                      key={index}
                      isLandlord={props.isLandlord}
@@ -222,7 +237,6 @@ function Rent(props: {
    rent: RentType
 }) {
    const navigate = useNavigate();
-   console.log(props.rent);
 
    return (
       <div className="rent">
@@ -230,15 +244,15 @@ function Rent(props: {
             <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="rent-image" alt="" />
          </div>
          <div className="rent-details">
-            <h2>{props.rent.name}</h2>
-            <p>#{props.rent.rent_identification}</p>
+            <h2>{props?.rent.name}</h2>
+            <p>#{props?.rent.rent_identification}</p>
          </div>
          <div className="buttons">
             {props.isLandlord ?
                <Button
                   type="SECONDARY"
                   cb={() => {
-                     navigate(`/rent/1/manage`)
+                     navigate(`/rent/${props.rent.id}/manage`)
                   }}>Manage</Button>
                :
                <Button
@@ -249,7 +263,7 @@ function Rent(props: {
             <Button
                type="PRIMARY"
                cb={() => {
-                  navigate(`/rent/1/dashboard`)
+                  navigate(`/rent/${props.rent.id}/dashboard`)
                }}>Dashboard</Button>
          </div>
       </div>
