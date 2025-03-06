@@ -364,6 +364,21 @@ h3 {
 .rent-dashboard .utilities .utilities-grid .utility .circle .aproximately-cost {
   color: rgba(0, 0, 0, 0.4588235294);
 }
+.rent-dashboard .utilities .utilities-grid .utility:nth-child(1) .circle {
+  background-color: #73E955;
+}
+.rent-dashboard .utilities .utilities-grid .utility:nth-child(2) .circle {
+  background-color: #5CADDF;
+}
+.rent-dashboard .utilities .utilities-grid .utility:nth-child(3) .circle {
+  background-color: #D6AE11;
+}
+.rent-dashboard .utilities .utilities-grid .utility:nth-child(4) .circle {
+  background-color: #D62E11;
+}
+.rent-dashboard .utilities .utilities-grid .utility:nth-child(5) .circle {
+  background-color: #fcbc0e;
+}
 .rent-dashboard .utilities .manage-utilty {
   grid-template-columns: auto;
   gap: 2rem;
@@ -432,19 +447,24 @@ h3 {
   opacity: 1;
   transform: translate(-50%, 100%);
 }
-.total-calculator .wrapper .progress-bar .ethernet {
+
+.progress-color:nth-child(1) {
   background-color: #73E955;
 }
-.total-calculator .wrapper .progress-bar .water {
+
+.progress-color:nth-child(2) {
   background-color: #5CADDF;
 }
-.total-calculator .wrapper .progress-bar .electricty {
+
+.progress-color:nth-child(3) {
   background-color: #D6AE11;
 }
-.total-calculator .wrapper .progress-bar .gas {
+
+.progress-color:nth-child(4) {
   background-color: #D62E11;
 }
-.total-calculator .wrapper .progress-bar .rent {
+
+.progress-color:nth-child(5) {
   background-color: #fcbc0e;
 }
 

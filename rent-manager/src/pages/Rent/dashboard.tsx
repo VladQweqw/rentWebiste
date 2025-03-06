@@ -6,6 +6,8 @@ import Section from "../../components/section";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router";
 import NoContent from "../../components/noContent";
+import Loading from "../../components/loading";
+import ErrorComponent from "../../components/error";
 
 export default function Dashboard() {
    const navigate = useNavigate();
@@ -41,16 +43,18 @@ export default function Dashboard() {
    return (
       <Section>
          <div className="rent-dashboard d-height">
-            {data ? <>
+            {isLoading ? <Loading /> : ""}
+            {error ? <ErrorComponent /> : ""}
 
+            {data ? <>
                <header>
                   <h2 className="rent-name">{data?.name}</h2>
                   <p>{formatTime().now()}</p>
                </header>
 
                <div className="usages">
-                  {data?.utilities ? <Utilities utils={data?.utilities} /> : <NoContent>No utilities set yet!</NoContent>}
-                  {data?.utilities ? <TotalCalculator utils={data?.utilities} /> : <NoContent>No utilities set yet!</NoContent>}
+                  {data?.utilities ? <Utilities utils={data?.utilities.target.utilities} /> : <NoContent>No utilities set yet!</NoContent>}
+                  {data?.utilities ? <TotalCalculator utils={data?.utilities.target.utilities} /> : <NoContent>No utilities set yet!</NoContent>}
                </div>
 
                <div className="buttons">
@@ -100,16 +104,24 @@ function Utility(props: {
          <div className="circle">
             <div className="usage">
                <h1 className="usage-value">{props.util.value}</h1>
-               <p className="units">completat</p>
+               <p className="units">{props.util.units}</p>
             </div>
             <p className="aproximately-cost">~ {props.util.value * props.util.price_per_unit} {props.util.currency}</p>
-            <p className="index">Last index: 2313</p>
+            <p className="index">Last index: {props.util.index}</p>
          </div>
       </div>
    )
 }
 
-function TotalCalculator() {
+function TotalCalculator(props: {
+   utils: UtilityType[]
+}) {
+
+   const total_val = props.utils.reduce((acc, red) => acc + red.value, 0);
+   
+   function getProcent(value: number) {
+      return (value * 100) / total_val;
+   }
 
    return (
       <div className="total-calculator">
@@ -117,12 +129,21 @@ function TotalCalculator() {
 
          <div className="wrapper">
             <div className="progress-bar">
-               <Progress name={"Ethernet"} price={23} type="ethernet" value={5} />
-               <Progress name={"Gas"} price={23} type="gas" value={20} />
-               <Progress name={"Water"} price={23} type="water" value={20} />
-               <Progress name={"Rent"} price={23} type="rent" value={55} />
+               {
+                  props.utils.map((util: UtilityType, index: number) => {
+                     return <Progress
+                     key={index}
+                     name={util.name}
+                     price={util.value}
+                     type={util.name}
+                     currency={util.currency}
+                     value={getProcent(util.value)}
+                     />
+                  })
+               }
+      
             </div>
-            <h3 className="total">Total: 333 Euro</h3>
+            <h3 className="total">Total: {total_val} RON</h3>
          </div>
       </div>
    )
@@ -133,6 +154,7 @@ function Progress(props: {
    value: number,
    price: number,
    name: string,
+   currency: string
 }) {
 
    return (
@@ -141,9 +163,9 @@ function Progress(props: {
             width: `${props.value}%`,
          }}
 
-         className={`progress ${props.type}`}>
+         className={`progress progress-color`}>
          <p>{props.name}</p>
-         <span>{props.name} {props.price} Euro</span>
+         <span>{props.name} {props.price} {props.currency}</span>
       </div>
    )
 }

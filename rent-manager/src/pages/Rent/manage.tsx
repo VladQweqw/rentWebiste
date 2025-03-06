@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { formatTime } from "../../assets/functions/functions";
 import Button from "../../components/button";
 import Section from "../../components/section";
@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../components/api/useFetch";
 import NoContent from "../../components/noContent";
 import ErrorComponent from "../../components/error";
+import Loading from "../../components/loading";
 
 export default function Manage() {
    const navigate = useNavigate();
@@ -38,6 +39,9 @@ export default function Manage() {
    return (
       <Section>
          <div className="rent-dashboard d-height">
+            {isLoading ? <Loading /> : ""}
+            {error ? <ErrorComponent /> : ""}
+
             {data ? <>
 
                <header>
@@ -46,8 +50,8 @@ export default function Manage() {
                </header>
 
                <div className="usages">
-                  <Utilities utilities={data?.utilities.target.utilities} />
-                  <AddUtility rent_id={rent_id || ""} />
+                  <Utilities utilities={data?.utilities?.target.utilities} />
+                  <AddUtility rent_id={rent_id} />
                </div>
 
                <div className="buttons">
@@ -89,7 +93,7 @@ function Utilities(props: {
 function AddUtility(props: {
    utilities: [],
    setUtilities: (args0: any) => void,
-   rent_id: string
+   rent_id: string | undefined
 }) {
    const form = useRef<HTMLFormElement | null>(null);
 
